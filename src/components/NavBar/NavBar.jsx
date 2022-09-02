@@ -14,7 +14,10 @@ import {
     UnorderedList,
     Heading,
     Flex,
-    Container
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
 } from '@chakra-ui/react'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
@@ -56,9 +59,17 @@ export const NavBar = () => {
                 <Heading fontSize='3xl' mr='10%' >Zona Geek</Heading>
                 <Flex>
                     <Button borderRadius='50%'><FontAwesomeIcon icon={faCartShopping} /></Button>
-                    <Button borderRadius='50%'><FontAwesomeIcon icon={faUser} /></Button>
+                    <Menu>
+                        <MenuButton as={Button} borderRadius='50%' >
+                            <FontAwesomeIcon icon={faUser} />
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem>Cuenta</MenuItem>
+                            <MenuItem>Resumen</MenuItem>
+                            <MenuItem>Cerrar sesion</MenuItem>
+                        </MenuList>
+                    </Menu>
                 </Flex>
-
             </Flex>
 
         </Box>
