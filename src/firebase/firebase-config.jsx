@@ -6,3 +6,4 @@ export const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGINGSENDEIRD,
     appId: process.env.REACT_APP_APPID
 };
+
