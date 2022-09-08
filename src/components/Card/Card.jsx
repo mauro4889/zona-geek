@@ -6,18 +6,20 @@ import {
     Text,
     Stack,
     Image,
+    Button,
 } from '@chakra-ui/react';
+import { formatPrice } from '../../utils/formatPrice';
 
-const IMAGE =
-    'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
 
-export const Card = () => {
+export const Card = ({title, desc, price, category, img}) => {
     return (
         <Center py={12}>
             <Box
                 role={'group'}
                 p={6}
-                maxW={'330px'}
+                maxW={'300px'}
+                maxH={'40em'}
+                h={'full'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.800')}
                 boxShadow={'2xl'}
@@ -37,7 +39,6 @@ export const Card = () => {
                         pos: 'absolute',
                         top: 5,
                         left: 0,
-                        backgroundImage: `url(${IMAGE})`,
                         filter: 'blur(15px)',
                         zIndex: -1,
                     }}
@@ -51,24 +52,22 @@ export const Card = () => {
                         height={230}
                         width={282}
                         objectFit={'cover'}
-                        src={IMAGE}
+                        src={img}
                     />
                 </Box>
                 <Stack pt={10} align={'center'}>
                     <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                        Brand
+                        {title}
                     </Text>
                     <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-                        Nice Chair, pink
+                        {desc}
                     </Heading>
                     <Stack direction={'row'} align={'center'}>
                         <Text fontWeight={800} fontSize={'xl'}>
-                            $57
-                        </Text>
-                        <Text textDecoration={'line-through'} color={'gray.600'}>
-                            $199
+                            {formatPrice(price)}
                         </Text>
                     </Stack>
+                    <Button backgroundColor={'black'} color={'white'}>Comprar</Button>
                 </Stack>
             </Box>
         </Center>
