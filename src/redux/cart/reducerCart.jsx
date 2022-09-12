@@ -1,12 +1,20 @@
 import { AGREGAR, BORRAR } from "./actionCart"
+import { agregarCarrito } from "./utilsCart"
 
 
-const initialState =[]
+const initialState ={
+    products:[],
+    totalCost: 0
+}
 
 export const reducerCart = (state = initialState, action)=>{
-    switch(action.type){
+    const {type, payload} = action
+    switch(type){
         case AGREGAR:
-            return [...state, action.payload]
+            return {
+                ...state,
+                products: agregarCarrito(state.products, payload)
+            }
         case BORRAR:
             return initialState
         default:
