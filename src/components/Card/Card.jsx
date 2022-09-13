@@ -8,18 +8,17 @@ import {
     Image,
     Button,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {  agregarCart } from '../../redux/cart/actionCart';
 import { formatPrice } from '../../utils/formatPrice';
 
 
 export const Card = ({title, desc, price, category, img, id}) => {
     const dispatch = useDispatch()
-    const state = useSelector((state)=> state.carrito)
 
     const handleSubmit = () =>{
         dispatch(agregarCart({title, desc, price, category, img, id}))
-        console.log(state)
+
     }
 
     return (

@@ -1,10 +1,10 @@
-import { AGREGAR, BORRAR } from "./actionCart"
-import { agregarCarrito } from "./utilsCart"
+import { AGREGAR, BORRAR, REMOVER } from "./actionCart"
+import { agregarCarrito, removerCarrito } from "./utilsCart"
 
 
 const initialState ={
     products:[],
-    totalCost: 0
+    total: 0
 }
 
 export const reducerCart = (state = initialState, action)=>{
@@ -13,7 +13,12 @@ export const reducerCart = (state = initialState, action)=>{
         case AGREGAR:
             return {
                 ...state,
-                products: agregarCarrito(state.products, payload)
+                products: agregarCarrito(state.products, payload),
+            }
+        case REMOVER:
+            return{
+                ...state,
+                products: removerCarrito(state.products, payload)
             }
         case BORRAR:
             return initialState
