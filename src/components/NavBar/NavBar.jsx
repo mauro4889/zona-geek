@@ -58,10 +58,9 @@ export const NavBar = () => {
                         <DrawerBody>
                             <UnorderedList listStyleType='none'>
                                 <Flex direction='column' justify='space-around' h='80vh' fontSize='xl' >
-                                    <ListItem><Link>Inicio</Link></ListItem>
-                                    <ListItem><Link>Categoria</Link></ListItem>
-                                    <ListItem><Link>Contacto</Link></ListItem>
-                                    <ListItem><Link>Login</Link></ListItem>
+                                    <ListItem><NavLink to='/' >Inicio</NavLink></ListItem>
+                                    <ListItem><NavLink to='contact'>Contacto</NavLink></ListItem>
+                                    <ListItem><NavLink to='/login' >Iniciar sesion</NavLink></ListItem>
                                 </Flex>
                             </UnorderedList>
                         </DrawerBody>

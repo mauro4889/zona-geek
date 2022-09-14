@@ -10,21 +10,23 @@ import {
     Button,
     Heading,
     useColorModeValue,
+    Text
 } from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase/firebase-utils';
+import googleicon from '../../assets/img/googleicon.svg'
+import { NavLink } from 'react-router-dom';
 
 
 
 
 export const Login = () => {
 
-    const handleOnClick = async () =>{
+    const handleOnClick = async () => {
         const googleProvider = new GoogleAuthProvider();
         await signInWithGoogle(googleProvider)
 
-        const signInWithGoogle = async (googleProvider) =>{
+        const signInWithGoogle = async (googleProvider) => {
             try {
                 const res = await signInWithPopup(auth, googleProvider)
             } catch (error) {
@@ -33,7 +35,7 @@ export const Login = () => {
         }
     }
 
-    
+
 
     return (
         <Flex
@@ -59,17 +61,18 @@ export const Login = () => {
                             <FormLabel>Contraseña</FormLabel>
                             <Input type="password" />
                         </FormControl>
-                        <Stack spacing={10}>
+                        <Stack spacing={5}>
                             <Stack
-                                direction={{ base: 'column', sm: 'row' }}
+                                direction={{ base: 'column'}}
                                 align={'start'}
                                 justify={'space-between'}>
                                 <Checkbox>Recuerdame</Checkbox>
-                                <Link color={'blue.400'}>Forgot password?</Link>
+                                <Link color={'blue.400'}>¿Olvido la contraseña?</Link>
+                                <NavLink to='/createacount' color={'blue.400'}><Text color={'blue.400'}>¿No tiene cuenta?</Text></NavLink>
                             </Stack>
                             <Box>
                                 <Button onClick={handleOnClick}>
-                                    <FontAwesomeIcon icon={['fas', 'google']} />
+                                    <img src={googleicon}/>
                                 </Button>
                             </Box>
                             <Button
