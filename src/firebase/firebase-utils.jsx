@@ -21,7 +21,9 @@ export const createUser = async (email, password) =>{
     })
 
     alert(`Se envio un correo de verificacion a ${email}`)
-    localStorage.setItem(newUser.user)
+    localStorage.setItem( 'username',newUser.user)
+
+    return newUser
 }
 
 //Iniciar sesion con correo y contraseña
@@ -40,3 +42,27 @@ export const resetPassword = async email =>{
 //Iniciar con Google
 const providerGoogle = new GoogleAuthProvider()
 export const signInGoogle = () => signInWithPopup(auth, providerGoogle)
+
+
+// INICIO FIRESTORE
+export const createUserProfile = async userAutenticated =>{ //userAutenticated es la informacion que devuelve google del usuario
+    const userReference = doc(db, `user/${userAutenticated.uid}`)
+
+    const snapshot = await getDoc(userReference) //snapshot es el documento que se obtiene de firestore
+
+    if (!snapshot.exists()){ //si snapshot no existe, se crea
+        const {name, email, photoURL} = userAutenticated
+        try {
+            await setDoc(userAutenticated, {
+                name,
+                email,
+                photoURL,
+                createdAt: new Date()
+            })
+        } catch (error) {
+            console.log({error})
+        }
+    }
+
+    return userReference
+}

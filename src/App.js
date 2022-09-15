@@ -11,10 +11,11 @@ import { Contact } from "./components/Contact/Contact";
 
 
 
+
 function App() {
   return (
     <ChakraProvider>
-      <NavBar />
+      <CreateAcount/>
       <Routes>
         <Route path="/" element={<Navigate to='index' />}></Route>
         <Route path="index" element={<Products />}></Route>
