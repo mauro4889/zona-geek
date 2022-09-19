@@ -9,7 +9,6 @@ import {
     DrawerHeader,
     Drawer,
     DrawerBody,
-    Link,
     ListItem,
     UnorderedList,
     Heading,
@@ -19,7 +18,8 @@ import {
     MenuList,
     MenuItem,
     Stack,
-    Text
+    Text,
+    Avatar
 } from '@chakra-ui/react'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { auth } from '../../firebase/firebase-utils'
 import { formatPrice } from '../../utils/formatPrice'
 import { CardCart } from '../CardCart/CardCart'
 
@@ -38,6 +39,7 @@ export const NavBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
     const {products} = useSelector((state)=>state.carrito)
+    const {user} = useSelector((state)=> state.user)
     const total = products.reduce((sub, product) => (sub += product.price * product.quantity), 0)
     return (
         <Box w='100%' p='2%' borderBottom='1px'>
@@ -66,10 +68,11 @@ export const NavBar = () => {
                         </DrawerBody>
                     </DrawerContent>
                 </Drawer>
-                <Heading fontSize='3xl' mr='10%' >Zona Geek</Heading>
+                <Heading fontSize='3xl' mr='10%' cursor='pointer' > <NavLink to='/'>Zona Geek</NavLink> </Heading>
                 <Flex justify='center' aling='center' >
                     <Menu>
-                        <MenuButton as={Button} borderRadius='50%'>
+                        
+                        <MenuButton as={Button} borderRadius='50%' isDisabled={!user}>
                             <FontAwesomeIcon icon={faCartShopping} />
                         </MenuButton>
                         <MenuList className='carrito' maxH={{xs:'150px', sm:'5%'}} w={{xs:'50px', sm:'50%'}} zIndex='100' overflow='scroll'>
@@ -82,14 +85,16 @@ export const NavBar = () => {
                             </Stack>                            
                         </MenuList>
                     </Menu>
-                    <Menu>
-                        <MenuButton as={Button} borderRadius='50%' >
-                            <FontAwesomeIcon icon={faUser} />
+                    <Text w='8em' m='5%' textAlign='right' cursor='pointer' >
+                        {user ? `${user.name}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
+                    </Text>
+                    <Menu >
+                        <MenuButton as={Button} bg='none' _hover={{bg:'none'}} borderRadius='50%' isDisabled={!user}>
+                            {user ? <Avatar objectFit={'cover'} src={user.photoURL}/> : <FontAwesomeIcon icon={faUser} />}
                         </MenuButton>
-                        <MenuList>
-                            <MenuItem>Cuenta</MenuItem>
+                        <MenuList >
                             <MenuItem>Resumen</MenuItem>
-                            <MenuItem>Cerrar sesion</MenuItem>
+                            <MenuItem onClick={()=> auth.signOut()}>Cerrar sesion</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

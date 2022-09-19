@@ -1,6 +1,7 @@
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useRedirect } from '../../hooks/useRedirect'
 import { CardCart } from '../CardCart/CardCart'
 
 export const CheckOut = () => {

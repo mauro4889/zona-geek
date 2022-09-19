@@ -18,13 +18,27 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {  NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { createUser, resetPassword } from '../../firebase/firebase-utils';
+import { useRedirect } from '../../hooks/useRedirect';
+
+const ERROR_CODES ={
+    EMAIL_IN_USE: 'auth/email-already-in-use'
+}
 
 export const CreateAcount = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const {register, handleSubmit, watch, formState:{errors}} = useForm()
+    const {reset, register, handleSubmit} = useForm()
+    useRedirect('/')
 
-    const onSubmit = values =>{
-        return console.log(values)
+    const onSubmit = async (values) =>{
+        const {email, firstName, lastName, password} = values
+        try {
+            const response = await createUser(email, password, firstName, lastName)
+        } catch (error) {
+            if (error.code === ERROR_CODES.EMAIL_IN_USE)
+            alert('Ya existe una cuenta con ese email')
+            reset()
+        }
     }
 
     return (

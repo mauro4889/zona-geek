@@ -10,14 +10,38 @@ export const auth = getAuth(app) //Trae todos los servicios de autenticacion de 
 export const db = getFirestore(app)
 export const storage = getStorage(app)
 
-console.log(db)
+// INICIO FIRESTORE
+export const createUserProfile = async userAutenticated =>{ //userAutenticated es la informacion que devuelve google del usuario
+    const userReference = doc(db, `user/${userAutenticated.uid}`)
+
+    const snapshot = await getDoc(userReference) //snapshot es el documento que se obtiene de firestore
+    if (!snapshot.exists()){ //si snapshot no existe, se crea
+        const { email, photoURL, displayName} = userAutenticated
+        try {
+            await setDoc(userReference, {
+                name: displayName,
+                email,
+                photoURL,
+                createdAt: new Date()
+            })
+        } catch (error) {
+            console.log({error})
+        }
+    }
+
+    return snapshot
+}
 
 //Crear usuario
 export const createUser = async (email, password) =>{
-    const newUser = await createUserWithEmailAndPassword(auth, email, password)
+    const newUser = await createUserWithEmailAndPassword(
+        auth, 
+        email, 
+        password
+    )
 
     await sendEmailVerification(newUser.user,{
-        url:'http///localhost:3000'
+        url:'http://localhost:3000/login'
     })
 
     alert(`Se envio un correo de verificacion a ${email}`)
@@ -27,9 +51,10 @@ export const createUser = async (email, password) =>{
 }
 
 //Iniciar sesion con correo y contraseña
-export const signIn = (email, password) =>{
+export const signIn = (email, password) =>
     signInWithEmailAndPassword(auth, email, password)
-}
+
+
 
 //Reiniciar contraseña
 export const resetPassword = async email =>{
@@ -44,25 +69,3 @@ const providerGoogle = new GoogleAuthProvider()
 export const signInGoogle = () => signInWithPopup(auth, providerGoogle)
 
 
-// INICIO FIRESTORE
-export const createUserProfile = async userAutenticated =>{ //userAutenticated es la informacion que devuelve google del usuario
-    const userReference = doc(db, `user/${userAutenticated.uid}`)
-
-    const snapshot = await getDoc(userReference) //snapshot es el documento que se obtiene de firestore
-
-    if (!snapshot.exists()){ //si snapshot no existe, se crea
-        const {name, email, photoURL} = userAutenticated
-        try {
-            await setDoc(userAutenticated, {
-                name,
-                email,
-                photoURL,
-                createdAt: new Date()
-            })
-        } catch (error) {
-            console.log({error})
-        }
-    }
-
-    return userReference
-}
