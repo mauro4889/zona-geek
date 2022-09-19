@@ -9,10 +9,9 @@ export const agregarCart = id => {
     }
 }
 
-export const borrarCart = id => {
+export const limpiarCart = () => {
     return{
-        type: AGREGAR,
-        payload: id
+        type: BORRAR
     }
 }
 

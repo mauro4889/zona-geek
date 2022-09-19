@@ -1,71 +1,58 @@
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Stack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useRedirect } from '../../hooks/useRedirect'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { createOrder } from '../../redux/order/actionOrder'
 import { CardCart } from '../CardCart/CardCart'
+import { v4 } from 'uuid';
 
 export const CheckOut = () => {
-    const [input, setInput] = useState('')
+    const {reset, register, handleSubmit} = useForm()
 
-    const handleInputChange = (e) => setInput(e.target.value)
+    const navigate = useNavigate()
 
-    const isError = input === ''
+    const {products, total} = useSelector((state)=>state.carrito)
+    const {user} = useSelector((state)=>state.user)
+    const dispatch = useDispatch()
 
-    const {products} = useSelector((state)=>state.carrito)
+    const onSubmit = async values =>{
+        const order = {
+            user: user.id,
+            products,
+            total,
+            id: v4
+        }
+        dispatch(createOrder(order))
+        navigate('/')
+        reset()
+    }
+
     return (
         <Box p='5%'>
-            <Text>Usuario</Text>
-            <Flex gap='10%' wrap='wrap' >
-                <Box>
-                    <Flex gap='5%' wrap='wrap' >
-                        <FormControl isInvalid={isError}>
+            <Text>{user.name}</Text>
+            <Flex gap='10%' wrap='wrap' justify='space-between' >
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Stack>
+                        <FormControl>
                             <FormLabel>Nombre</FormLabel>
-                            <Input
-                                type='text'
-                                value={input}
-                                onChange={handleInputChange}
-                            />
-                            {!isError ? (
-                                <FormHelperText>
-                                    Ingrese su nombre
-                                </FormHelperText>
-                            ) : (
-                                <FormErrorMessage>Se requiere un nombre.</FormErrorMessage>
-                            )}
+                            <Input type='text' {...register('nombre',{requiered: true})}></Input>
                         </FormControl>
-                        <FormControl isInvalid={isError}>
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                                type='email'
-                                value={input}
-                                onChange={handleInputChange}
-                            />
-                            {!isError ? (
-                                <FormHelperText>
-                                    Ingrese su email
-                                </FormHelperText>
-                            ) : (
-                                <FormErrorMessage>Se requiere de un email.</FormErrorMessage>
-                            )}
+                        <FormControl>
+                            <FormLabel>Telefono</FormLabel>
+                            <Input type='number' {...register('direccion',{requiered: true})}></Input>
                         </FormControl>
-                        <FormControl isInvalid={isError}>
-                            <FormLabel>Direccion</FormLabel>
-                            <Input
-                                type='text'
-                                value={input}
-                                onChange={handleInputChange}
-                            />
-                            {!isError ? (
-                                <FormHelperText>
-                                    Ingrese su direccion
-                                </FormHelperText>
-                            ) : (
-                                <FormErrorMessage>Se requiere para hacer llegar su producto</FormErrorMessage>
-                            )}
+                        <FormControl>
+                            <FormLabel>Dirección</FormLabel>
+                            <Input type='text' {...register('telefono',{requiered: true})}></Input>
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Localidad</FormLabel>
+                            <Input type='text' {...register('localidads',{requiered: true})}></Input>
                         </FormControl>
                         <Button type='submit'>Finalizar compra</Button>
-                    </Flex>
-                </Box>
+                    </Stack>
+                </form>
                 <Box>
                     {
                         products.map((product) => <CardCart key={product.id} {...product} />)
