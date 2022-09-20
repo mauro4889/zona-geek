@@ -19,7 +19,7 @@ export const Products = () => {
                 <option value='gabinete'>Gabinete</option>
                 <option value='gpu'>Placa de video</option>
             </Select>
-            <Box w='80%' m='auto' mt='5%' overflow='scroll' h='30em'>
+            <Box w='80%' m='auto' mt='5%'  h='30em'>
                 <Flex direction='row' wrap='wrap' alignItems='center' justifyContent='center' gap='5%' >
                     {Object.entries(_products).map(([category, product])=>
                         !categoria || category === categoria ?

@@ -38,23 +38,23 @@ export const CheckOut = () => {
             <Flex gap='10%' wrap='wrap' justify='space-between' >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel>Nombre</FormLabel>
-                            <Input borderColor={'black'} type='text' {...register('nombre',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('nombre',{requiered: {value: true, message: 'Ingresa tu nombre'}})}></Input>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel>Telefono</FormLabel>
                             <Input borderColor={'black'} type='number' {...register('direccion',{requiered: true})}></Input>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel>Dirección</FormLabel>
                             <Input borderColor={'black'} type='text' {...register('telefono',{requiered: true})}></Input>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel>Localidad</FormLabel>
                             <Input borderColor={'black'} type='text' {...register('localidads',{requiered: true})}></Input>
                         </FormControl>
-                        <Button bg='black' color='white' type='submit' _hover={{color:'black', bg:'white'}}>Finalizar compra</Button>
+                        <Button bg='black' color='white' type='submit' value='submit' _hover={{color:'black', bg:'white'}}>Finalizar compra</Button>
                     </Stack>
                 </form>
                 <Box maxW='50%'>

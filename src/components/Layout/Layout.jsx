@@ -10,7 +10,6 @@ export const Layout = ({ children }) => {
                 backgroundAttachment:'fixed',
                 backgroundSize:'cover',
                 width: '100vw',
-                height: '100vh'
             }} >{children}</div>
     )
 }
