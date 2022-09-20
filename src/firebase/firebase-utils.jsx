@@ -54,11 +54,10 @@ export const createOrderDocuments = async order => {
 }
 
 export const getFirebaseOrders = async userid =>{
-    const PATH = `order/user/${userid}`
-
+    const PATH = `orders/user/${userid}`
+    
     const collectionReference = collection(db, PATH)
     const {docs} = await getDocs(collectionReference)
-
     return docs.map(snapshot=>snapshot.data()) //se pasa a JSON las colleciones traidas de firebase
 }
 

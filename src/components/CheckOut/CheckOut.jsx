@@ -1,11 +1,12 @@
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Stack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { createOrder } from '../../redux/order/actionOrder'
 import { CardCart } from '../CardCart/CardCart'
 import { v4 } from 'uuid';
+import { ArrowBackIcon } from '@chakra-ui/icons'
 
 export const CheckOut = () => {
     const {reset, register, handleSubmit} = useForm()
@@ -21,42 +22,46 @@ export const CheckOut = () => {
             user: user.id,
             products,
             total,
-            id: v4
+            id: v4()
         }
         dispatch(createOrder(order))
-        navigate('/')
+        navigate('/finishorder')
         reset()
     }
 
     return (
         <Box p='5%'>
+            <NavLink to='/'>
+                <Button bg='none' mb='5%' leftIcon={<ArrowBackIcon/>} fontSize='xl'>Seguir comprando</Button>
+            </NavLink>            
             <Text>{user.name}</Text>
             <Flex gap='10%' wrap='wrap' justify='space-between' >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
                         <FormControl>
                             <FormLabel>Nombre</FormLabel>
-                            <Input type='text' {...register('nombre',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('nombre',{requiered: true})}></Input>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Telefono</FormLabel>
-                            <Input type='number' {...register('direccion',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='number' {...register('direccion',{requiered: true})}></Input>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Dirección</FormLabel>
-                            <Input type='text' {...register('telefono',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('telefono',{requiered: true})}></Input>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Localidad</FormLabel>
-                            <Input type='text' {...register('localidads',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('localidads',{requiered: true})}></Input>
                         </FormControl>
-                        <Button type='submit'>Finalizar compra</Button>
+                        <Button bg='black' color='white' type='submit' _hover={{color:'black', bg:'white'}}>Finalizar compra</Button>
                     </Stack>
                 </form>
-                <Box>
+                <Box maxW='50%'>
                     {
                         products.map((product) => <CardCart key={product.id} {...product} />)
                     }
+                    <Text fontWeight='bold'>Total: ${total}</Text>
                 </Box>
             </Flex>
         </Box>

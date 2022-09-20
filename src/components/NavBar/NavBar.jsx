@@ -19,7 +19,8 @@ import {
     MenuItem,
     Stack,
     Text,
-    Avatar
+    Avatar,
+    Badge
 } from '@chakra-ui/react'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
@@ -38,13 +39,12 @@ import { CardCart } from '../CardCart/CardCart'
 export const NavBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-    const {products} = useSelector((state)=>state.carrito)
-    const {user} = useSelector((state)=> state.user)
-    const total = products.reduce((sub, product) => (sub += product.price * product.quantity), 0)
+    const { products, total } = useSelector((state) => state.carrito)
+    const { user } = useSelector((state) => state.user)
     return (
         <Box w='100%' p='2%' borderBottom='1px'>
             <Flex justify='space-between'>
-                <Button bg='white' ref={btnRef} onClick={onOpen}>
+                <Button bg='none' ref={btnRef} onClick={onOpen}>
                     <HamburgerIcon color='black' fontSize='25px' />
                 </Button>
                 <Drawer
@@ -71,30 +71,25 @@ export const NavBar = () => {
                 <Heading fontSize='3xl' mr='10%' cursor='pointer' > <NavLink to='/'>Zona Geek</NavLink> </Heading>
                 <Flex justify='center' aling='center' >
                     <Menu>
-                        
-                        <MenuButton as={Button} borderRadius='50%' isDisabled={!user}>
-                            <FontAwesomeIcon icon={faCartShopping} />
-                        </MenuButton>
-                        <MenuList className='carrito' maxH={{xs:'150px', sm:'5%'}} w={{xs:'50px', sm:'50%'}} zIndex='100' overflow='scroll'>
-                            {
-                                products.map((product)=><CardCart key={product.id} {...product}/>)
-                            }
-                            <Stack>
-                                <Text>Total: {formatPrice(total)}</Text>
-                                <NavLink to='checkout' ><Button>Ir al carrito</Button></NavLink>                                
-                            </Stack>                            
-                        </MenuList>
+                        <NavLink to='checkout'>
+                            <MenuButton as={Button} borderRadius='50%' isDisabled={!user} bg='none'>
+                                <FontAwesomeIcon icon={faCartShopping} />
+                                <Badge variant='solid' colorScheme='green' borderRadius='100%'>
+                                    {products.length}
+                                </Badge>
+                            </MenuButton>
+                        </NavLink>
                     </Menu>
                     <Text w='8em' m='5%' textAlign='right' cursor='pointer' >
                         {user ? `${user.name}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
                     </Text>
                     <Menu >
-                        <MenuButton as={Button} bg='none' _hover={{bg:'none'}} borderRadius='50%' isDisabled={!user}>
-                            {user ? <Avatar objectFit={'cover'} src={user.photoURL}/> : <FontAwesomeIcon icon={faUser} />}
+                        <MenuButton as={Button} bg='none' _hover={{ bg: 'none' }} borderRadius='50%' isDisabled={!user}>
+                            {user ? <Avatar objectFit={'cover'} src={user.photoURL} /> : <FontAwesomeIcon icon={faUser} />}
                         </MenuButton>
                         <MenuList >
-                            <MenuItem>Resumen</MenuItem>
-                            <MenuItem onClick={()=> auth.signOut()}>Cerrar sesion</MenuItem>
+                            <MenuItem><NavLink to='/resumen'>Resumen</NavLink></MenuItem>
+                            <MenuItem onClick={() => auth.signOut()}>Cerrar sesion</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

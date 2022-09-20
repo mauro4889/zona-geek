@@ -1,34 +1,33 @@
 export const agregarCarrito = (cart, product) => {
-    const exist = cart.find(item => item.id === product.id)
+    const exists = cart.find(item => item.id === product.id);
 
-    if (exist) {
+    if (exists) {
         return cart.map(item =>
-            item.id === exist.id
+            item.id === exists.id
                 ? {
                     ...item,
                     quantity: item.quantity + 1,
                 }
                 : item
-        )
+        );
     }
 
-    return [...cart, { ...product, quantity: 1 }]
-}
+    return [...cart, { ...product, quantity: 1 }];
+};
 
-export const removerCarrito = (cart, product) => {
-    const exist = cart.find(item => item.id === product.id)
+export const removerCarrito = (cart, ID) => {
+    const exists = cart.find(item => item.id === ID);
 
-    if (exist && exist.quantity > 1) {
+    if (exists && exists.quantity > 1) {
         return cart.map(item =>
-            item.id === exist.id
+            item.id === exists.id
                 ? {
                     ...item,
                     quantity: item.quantity - 1,
                 }
                 : item
-        )
+        );
     }
-
-    return cart.filter((item) => product.id !== item.id)
+    return cart.filter(item => ID !== item.id);
 }
 

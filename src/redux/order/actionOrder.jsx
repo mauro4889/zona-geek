@@ -1,5 +1,5 @@
 import { createOrderDocuments, getFirebaseOrders } from "../../firebase/firebase-utils"
-import { limpiarCart } from "../cart/actionCart"
+
 
 export const RECIVE_ORDERS = 'RECIVE_ORDERS'
 export const GET_ORDERS_FAILED = 'GET_ORDERS_FAILED'
@@ -34,16 +34,17 @@ export const getOrders = userid => {
 
 export const createOrder = order => {
     return async dispatch => {
+        console.log('create order')
         try {
-            await createOrderDocuments(order)
-            dispatch(getOrders(order.user))
-            return true
+            await createOrderDocuments(order);
+            dispatch(getOrders(order.user));
+            return true;
         } catch (error) {
             dispatch({
                 type: GET_ORDERS_FAILED,
-                payload: error
-            })
-            return false
+                payload: error,
+            });
+            return false;
         }
-    }
-}
+    };
+};

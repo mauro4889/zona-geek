@@ -40,6 +40,7 @@ export const Card = ({title, desc, price, category, img, id}) => {
                     mt={-12}
                     pos={'relative'}
                     height={'230px'}
+                    overflow='hidden'
                     _after={{
                         transition: 'all .3s ease',
                         content: '""',
@@ -58,9 +59,11 @@ export const Card = ({title, desc, price, category, img, id}) => {
                     }}>
                     <Image
                         rounded={'lg'}
-                        height={230}
-                        width={282}
-                        objectFit={'cover'}
+                        height={'100%'}
+                        width={'100%'}
+                        m='auto'
+                        mt='20%'
+                        objectFit={'fixed'}
                         src={img}
                     />
                 </Box>

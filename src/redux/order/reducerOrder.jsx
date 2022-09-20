@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const reducerOrder = (state = initialState, action) => {
-    const { type, payload } = state
+    const { type, payload } = action
     switch (type) {
         case RECIVE_ORDERS:
             return {

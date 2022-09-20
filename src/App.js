@@ -1,6 +1,6 @@
 import "./App.css";
 import { NavBar } from "./components/NavBar/NavBar";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Stack } from '@chakra-ui/react'
 import { Products } from './components/Products/Products'
 import { Navigate, Route, Routes } from "react-router-dom";
 import { CheckOut } from "./components/CheckOut/CheckOut";
@@ -14,6 +14,10 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./redux/user/actionUser";
 import { ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";
 import { ForgotPassword } from "./components/ForgotPassword/ForgotPassword";
+import { FinishCheckout } from "./components/FinishCheckout/FinishCheckout";
+import { Resumen } from "./pages/Resumen/Resumen";
+import bgimage from './assets/img/bgimage.jpg'
+
 
 const onChange = (dispatch, action) => {
   return onAuthStateChanged(auth, async user => {
@@ -34,9 +38,13 @@ function App() {
     return () => unsuscribe()
   }, [dispatch])
 
+
   return (
     <ChakraProvider>
-      <NavBar/>
+      <Stack bgimage="url('/assets/img/bgimage.jpg')" 
+      >
+        <NavBar />
+      </Stack>
       <Routes>
         <Route path="/" element={<Navigate to='index' />}></Route>
         <Route path="index" element={<Products />}></Route>
@@ -56,7 +64,9 @@ function App() {
         <Route path='login' element={<Login />}></Route>
         <Route path="createacount" element={<CreateAcount />} ></Route>
         <Route path="contact" element={<Contact />}></Route>
-        <Route path='forgotpassword' element={<ForgotPassword/>}></Route>
+        <Route path='forgotpassword' element={<ForgotPassword />}></Route>
+        <Route path='finishorder' element={<FinishCheckout />}></Route>
+        <Route path='resumen' element={<Resumen />}></Route>
       </Routes>
     </ChakraProvider>
   );

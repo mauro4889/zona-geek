@@ -18,8 +18,7 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
             <Stack
                 borderWidth="1px"
                 borderRadius="lg"
-                minW={{ xs:'10%', sm: '100%', md: '100px' }}
-                maxW={{ xs:'10%', sm: '100%', md: '100px' }}
+                maxW={{ xs:'1em', sm: '5em', md: '7em' }}                
                 height={{ xs:'20%', sm: '476px', md: '10rem' }}
                 direction={{ base: 'column', md: 'row' }}
                 bg={useColorModeValue('white', 'gray.900')}
