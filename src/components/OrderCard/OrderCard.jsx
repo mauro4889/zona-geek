@@ -8,19 +8,15 @@ import {
     Image,
 } from '@chakra-ui/react';
 import { Timestamp } from 'firebase/firestore';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import {formatDate} from '../../utils/formatDate'
 import resumenimg from '../../assets/img/resumen/resumenimg.jpg'
 
 export const OrderCard = ({ total, createdOrderDate, id }) => {
-    const [date, setDate] = useState('')
-
+    
     const createdDate = new Timestamp(
         createdOrderDate.seconds,
         createdOrderDate.nanoseconds
     ).toDate()
-
-    useEffect(()=>{setDate(createdDate)},[])
 
     return (
         <Center w={{sm:'30%', md:'25%', lg:'20%'}} h='20%' py={6}>
@@ -60,7 +56,7 @@ export const OrderCard = ({ total, createdOrderDate, id }) => {
                         Total: ${total}
                     </Heading>
                     <Text color={'black'}>
-                        {createdDate}
+                        Fecha {formatDate(createdDate)}
                     </Text>
                 </Stack>
             </Box>

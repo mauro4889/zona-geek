@@ -36,7 +36,6 @@ export const createUserProfile = async userAutenticated => { //userAutenticated 
 export const createOrderDocuments = async order => {
     const orderReference = doc(db, `orders/user/${order.user}/${order.id}`)
     const snapshot = await getDoc(orderReference)
-    console.log({ orderReference })
 
     if (!snapshot.exists()) {
         try {
@@ -72,7 +71,6 @@ export const createUser = async (email, password, name) => {
             password
         )
         await updateProfile(auth.currentUser, {displayName: name})
-        console.log(name)
         await sendEmailVerification(newUser.user, {
             url: 'http://localhost:3000/login'
         })

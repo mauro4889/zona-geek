@@ -18,7 +18,9 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
             <Stack
                 borderWidth="1px"
                 borderRadius="lg"
-                maxW={{ xs:'1em', sm: '5em', md: '7em' }}                
+                borderColor='black'
+                maxW={{ xs:'1em', sm: '5em', md: '7em' }}
+                maxH={{ xs:'5em'}}                
                 height={{ xs:'20%', sm: '476px', md: '10rem' }}
                 direction={{ base: 'column', md: 'row' }}
                 bg={useColorModeValue('white', 'gray.900')}
@@ -56,8 +58,12 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
                             flex={1}
                             fontSize={'sm'}
                             rounded={'full'}
+                            bg={'blue.400'}
+                            _hover={{
+                                bg: 'blue.500',
+                            }}
                             _focus={{
-                                bg: 'gray.200',
+                                bg: 'blue.500',
                             }}
                             onClick={()=>dispatch(removerProducto({id}))}>
                             -

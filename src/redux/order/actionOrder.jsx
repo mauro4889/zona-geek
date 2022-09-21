@@ -34,7 +34,6 @@ export const getOrders = userid => {
 
 export const createOrder = order => {
     return async dispatch => {
-        console.log('create order')
         try {
             await createOrderDocuments(order);
             dispatch(getOrders(order.user));

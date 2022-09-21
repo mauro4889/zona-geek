@@ -6,25 +6,28 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { createOrder } from '../../redux/order/actionOrder'
 import { CardCart } from '../CardCart/CardCart'
 import { v4 } from 'uuid';
-import { ArrowBackIcon } from '@chakra-ui/icons'
+import { ArrowBackIcon, DeleteIcon } from '@chakra-ui/icons'
+import { Spinner } from '@chakra-ui/react'
+import { limpiarCart } from '../../redux/cart/actionCart'
 
 export const CheckOut = () => {
-    const {reset, register, handleSubmit} = useForm()
+    const { reset, register, handleSubmit, isSubmitting } = useForm()
 
     const navigate = useNavigate()
 
-    const {products, total} = useSelector((state)=>state.carrito)
-    const {user} = useSelector((state)=>state.user)
+    const { products, total } = useSelector((state) => state.carrito)
+    const { user } = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
-    const onSubmit = async values =>{
+    const onSubmit = async values => {
         const order = {
             user: user.id,
             products,
             total,
             id: v4()
         }
-        dispatch(createOrder(order))
+        await dispatch(createOrder(order))
+        dispatch(limpiarCart())
         navigate('/finishorder')
         reset()
     }
@@ -32,36 +35,49 @@ export const CheckOut = () => {
     return (
         <Box p='5%'>
             <NavLink to='/'>
-                <Button bg='none' mb='5%' leftIcon={<ArrowBackIcon/>} fontSize='xl'>Seguir comprando</Button>
-            </NavLink>            
+                <Button bg='none' mb='5%' leftIcon={<ArrowBackIcon />} fontSize='xl'>Seguir comprando</Button>
+            </NavLink>
             <Text>{user.name}</Text>
             <Flex gap='10%' wrap='wrap' justify='space-between' >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
                         <FormControl isRequired>
                             <FormLabel>Nombre</FormLabel>
-                            <Input borderColor={'black'} type='text' {...register('nombre',{requiered: {value: true, message: 'Ingresa tu nombre'}})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('nombre', { requiered: { value: true, message: 'Ingresa tu nombre' } })}></Input>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Telefono</FormLabel>
-                            <Input borderColor={'black'} type='number' {...register('direccion',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='number' {...register('direccion', { requiered: true })}></Input>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Dirección</FormLabel>
-                            <Input borderColor={'black'} type='text' {...register('telefono',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('telefono', { requiered: true })}></Input>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Localidad</FormLabel>
-                            <Input borderColor={'black'} type='text' {...register('localidads',{requiered: true})}></Input>
+                            <Input borderColor={'black'} type='text' {...register('localidads', { requiered: true })}></Input>
                         </FormControl>
-                        <Button bg='black' color='white' type='submit' value='submit' _hover={{color:'black', bg:'white'}}>Finalizar compra</Button>
+                        <Button isDisabled={isSubmitting} bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
                     </Stack>
                 </form>
-                <Box maxW='50%'>
-                    {
-                        products.map((product) => <CardCart key={product.id} {...product} />)
-                    }
-                    <Text fontWeight='bold'>Total: ${total}</Text>
+                <Box maxW='50%' overflow='scroll' >
+                    <Flex wrap='wrap' direction='column'>
+                        <Button
+                            leftIcon={<DeleteIcon />}
+                            onClick={() => dispatch(limpiarCart())}
+                            bg={'blue.400'}
+                            _hover={{
+                                bg: 'blue.500',
+                            }}
+                            _focus={{
+                                bg: 'blue.500',
+                            }}>Limpiar carrito</Button>
+                        {
+                            products.map((product) => <CardCart key={product.id} {...product} />)
+                        }
+                        <Text fontWeight='bold'>Total: ${total}</Text>
+                    </Flex>
+
                 </Box>
             </Flex>
         </Box>
