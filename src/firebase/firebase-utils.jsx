@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from './firebase-config'
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth'
-import { getStorage} from 'firebase/storage'
-import { getFirestore, collection,  getDocs, doc, getDoc, setDoc, Firestore } from 'firebase/firestore'
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, GoogleAuthProvider, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getStorage } from 'firebase/storage'
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, Firestore } from 'firebase/firestore'
 import { ORDER_STATUS } from '../constants/constants'
 
 
@@ -36,7 +36,7 @@ export const createUserProfile = async userAutenticated => { //userAutenticated 
 export const createOrderDocuments = async order => {
     const orderReference = doc(db, `orders/user/${order.user}/${order.id}`)
     const snapshot = await getDoc(orderReference)
-    console.log({orderReference})
+    console.log({ orderReference })
 
     if (!snapshot.exists()) {
         try {
@@ -53,32 +53,38 @@ export const createOrderDocuments = async order => {
     return snapshot
 }
 
-export const getFirebaseOrders = async userid =>{
+export const getFirebaseOrders = async userid => {
     const PATH = `orders/user/${userid}`
-    
+
     const collectionReference = collection(db, PATH)
-    const {docs} = await getDocs(collectionReference)
-    return docs.map(snapshot=>snapshot.data()) //se pasa a JSON las colleciones traidas de firebase
+    const { docs } = await getDocs(collectionReference)
+    return docs.map(snapshot => snapshot.data()) //se pasa a JSON las colleciones traidas de firebase
 }
 
 //FIN FIRESTORE
 
 //Crear usuario
-export const createUser = async (email, password) => {
-    const newUser = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-    )
+export const createUser = async (email, password, name) => {
+    try {
+        const newUser = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        )
+        await updateProfile(auth.currentUser, {displayName: name})
+        console.log(name)
+        await sendEmailVerification(newUser.user, {
+            url: 'http://localhost:3000/login'
+        })
 
-    await sendEmailVerification(newUser.user, {
-        url: 'http://localhost:3000/login'
-    })
+        alert(`Se envio un correo de verificacion a ${email}`)
+        localStorage.setItem('username', newUser.user)
 
-    alert(`Se envio un correo de verificacion a ${email}`)
-    localStorage.setItem('username', newUser.user)
+        return newUser
+    } catch (error) {
 
-    return newUser
+    }
+
 }
 
 //Iniciar sesion con correo y contraseña

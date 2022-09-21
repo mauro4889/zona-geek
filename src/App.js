@@ -17,6 +17,7 @@ import { ForgotPassword } from "./components/ForgotPassword/ForgotPassword";
 import { FinishCheckout } from "./components/FinishCheckout/FinishCheckout";
 import { Resumen } from "./pages/Resumen/Resumen";
 import bgimage from './assets/img/bgimage.jpg'
+import { Confirmation } from "./components/Contact/Confirmation";
 
 
 const onChange = (dispatch, action) => {
@@ -64,6 +65,7 @@ function App() {
         <Route path='login' element={<Login />}></Route>
         <Route path="createacount" element={<CreateAcount />} ></Route>
         <Route path="contact" element={<Contact />}></Route>
+        <Route path='contactconfirm' element={<Confirmation/>}></Route>
         <Route path='forgotpassword' element={<ForgotPassword />}></Route>
         <Route path='finishorder' element={<FinishCheckout />}></Route>
         <Route path='resumen' element={<Resumen />}></Route>

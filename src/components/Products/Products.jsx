@@ -9,7 +9,7 @@ export const Products = () => {
         setCategoria(e.target.value)
     }
     return (
-        <Box mt='10%' >
+        <Box mt='0%' >
             <Text fontSize='3xl' fontWeight='bold' textAlign='center' mb='5%' >NUESTROS PRODUCTOS</Text>
             <Select w='80%' m='auto' placeholder='Seleccione categoria' onChange={handleSelect} borderColor='black' >
                 <option value=''>Todos</option>
@@ -19,7 +19,7 @@ export const Products = () => {
                 <option value='gabinete'>Gabinete</option>
                 <option value='gpu'>Placa de video</option>
             </Select>
-            <Box w='80%' m='auto' mt='5%'  h='30em'>
+            <Box w='80%' m='auto' mt='2%'  h='35em' overflow='scroll'>
                 <Flex direction='row' wrap='wrap' alignItems='center' justifyContent='center' gap='5%' >
                     {Object.entries(_products).map(([category, product])=>
                         !categoria || category === categoria ?

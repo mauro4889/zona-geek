@@ -71,7 +71,7 @@ export const NavBar = () => {
                 <Heading fontSize='3xl' mr='10%' cursor='pointer' > <NavLink to='/'>Zona Geek</NavLink> </Heading>
                 <Flex justify='center' aling='center' >
                     <Menu>
-                        <NavLink to='checkout'>
+                        <NavLink to='/checkout'>
                             <MenuButton as={Button} borderRadius='50%' isDisabled={!user} bg='none'>
                                 <FontAwesomeIcon icon={faCartShopping} />
                                 <Badge variant='solid' colorScheme='green' borderRadius='100%'>
@@ -88,7 +88,7 @@ export const NavBar = () => {
                             {user ? <Avatar objectFit={'cover'} src={user.photoURL} /> : <FontAwesomeIcon icon={faUser} />}
                         </MenuButton>
                         <MenuList >
-                            <MenuItem><NavLink to='/resumen'>Resumen</NavLink></MenuItem>
+                        <NavLink to='/resumen'><MenuItem>Resumen</MenuItem></NavLink>
                             <MenuItem onClick={() => auth.signOut()}>Cerrar sesion</MenuItem>
                         </MenuList>
                     </Menu>

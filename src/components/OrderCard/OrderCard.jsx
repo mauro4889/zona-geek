@@ -8,15 +8,22 @@ import {
     Image,
 } from '@chakra-ui/react';
 import { Timestamp } from 'firebase/firestore';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import resumenimg from '../../assets/img/resumen/resumenimg.jpg'
 
 export const OrderCard = ({ total, createdOrderDate, id }) => {
-    const createdAtDate = new Timestamp(
+    const [date, setDate] = useState('')
+
+    const createdDate = new Timestamp(
         createdOrderDate.seconds,
         createdOrderDate.nanoseconds
     ).toDate()
+
+    useEffect(()=>{setDate(createdDate)},[])
+
     return (
-        <Center w='20%' h='20%' py={6}>
+        <Center w={{sm:'30%', md:'25%', lg:'20%'}} h='20%' py={6}>
             <Box
                 maxW={'445px'}
                 w={'full'}
@@ -26,11 +33,11 @@ export const OrderCard = ({ total, createdOrderDate, id }) => {
                 p={6}
                 overflow={'hidden'}>
                 <Box
-                    h={'210px'}
+                    h={'10%'}
                     bg={'gray.100'}
                     mt={-6}
                     mx={-6}
-                    mb={6}
+                    mb={0}
                     pos={'relative'}>
                     <Image
                         src={resumenimg}
@@ -39,7 +46,7 @@ export const OrderCard = ({ total, createdOrderDate, id }) => {
                 </Box>
                 <Stack>
                     <Text
-                        color={'green.500'}
+                        color='black'
                         textTransform={'uppercase'}
                         fontWeight={800}
                         fontSize={'sm'}
@@ -47,12 +54,13 @@ export const OrderCard = ({ total, createdOrderDate, id }) => {
                         Numero de orden {id}
                     </Text>
                     <Heading
-                        color={useColorModeValue('gray.700', 'white')}
+                        color={'black'}
                         fontSize={'2xl'}
                         fontFamily={'body'}>
                         Total: ${total}
                     </Heading>
-                    <Text color={'gray.500'}>
+                    <Text color={'black'}>
+                        {createdDate}
                     </Text>
                 </Stack>
             </Box>

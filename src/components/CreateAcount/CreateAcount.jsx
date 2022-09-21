@@ -31,9 +31,10 @@ export const CreateAcount = () => {
     useRedirect('/')
 
     const onSubmit = async (values) =>{
-        const {email, firstName, lastName, password} = values
+        const {email, name, lastname, password} = values
         try {
-            const response = await createUser(email, password, firstName, lastName)
+            await createUser(email, password, name, lastname)
+            console.log(name)
         } catch (error) {
             if (error.code === ERROR_CODES.EMAIL_IN_USE)
             alert('Ya existe una cuenta con ese email')
