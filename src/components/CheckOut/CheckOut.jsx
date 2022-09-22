@@ -68,7 +68,7 @@ export const CheckOut = () => {
                         <Button isDisabled={!products.length} spinner='true' bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
                     </Stack>
                 </form>
-                <Box mr={{ lg: '10%' }} mt={{ sm: '15%', lg: '0' }}>
+                <Box mr={{ lg: '10%' }} mt={{ sm: '15%', lg: '0', xl:'-8%' }}>
                     <Flex wrap='wrap' direction='column'>
                         <Button
                             w='10em'
