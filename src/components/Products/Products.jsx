@@ -10,7 +10,7 @@ export const Products = () => {
         setCategoria(e.target.value)
     }
     return (
-        <Box mt='0%' >
+        <Box mt='8%' >
             <Text fontSize='3xl' fontWeight='bold' textAlign='center' mb='5%' >NUESTROS PRODUCTOS</Text>
             <Select w='80%' m='auto' placeholder='Seleccione categoria' onChange={handleSelect} borderColor='black' >
                 <option value=''>Todos</option>

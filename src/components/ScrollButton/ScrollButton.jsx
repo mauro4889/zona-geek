@@ -7,6 +7,7 @@ export const ScrollButton = () => {
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
+        console.log(scrolled)
         if (scrolled > 300) {
             setVisible(true)
         }
@@ -27,7 +28,7 @@ export const ScrollButton = () => {
     return (
         <Button 
         position='fixed' 
-        top={{sm:'30em', lg:'32em'}}
+        top={{sm:'30em', lg:'32em', xl:'50em'}}
         left={{sm:'85%', lg:'92%'}} 
         bg='gray.900' 
         color='gray.50' 
