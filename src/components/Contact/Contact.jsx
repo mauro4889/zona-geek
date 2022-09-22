@@ -31,8 +31,8 @@ export const Contact = () => {
             id="contact">
             <Box
                 borderRadius="lg"
-                m={{ base: 5, md: 16, lg: 10 }}
-                p={{ base: 5, lg: 16 }}>
+                p={{ base: 5, lg: 16 }}
+                mt={{base:'10em'}}>
                 <Box>
                     <VStack spacing={{ base: 4, md: 8, lg: 20 }}>
                         <Heading
@@ -56,16 +56,13 @@ export const Contact = () => {
                                 <VStack spacing={5}>
                                     <FormControl isRequired>
                                         <FormLabel>Nombre</FormLabel>
-
                                         <InputGroup>
                                             <InputLeftElement children={<BsPerson />} />
                                             <Input type="text" name="name" placeholder="Tu nombre" />
                                         </InputGroup>
                                     </FormControl>
-
                                     <FormControl isRequired>
                                         <FormLabel>Email</FormLabel>
-
                                         <InputGroup>
                                             <InputLeftElement children={<MdOutlineEmail />} />
                                             <Input
@@ -75,10 +72,8 @@ export const Contact = () => {
                                             />
                                         </InputGroup>
                                     </FormControl>
-
                                     <FormControl isRequired>
                                         <FormLabel>Mensaje</FormLabel>
-
                                         <Textarea
                                             name="message"
                                             placeholder="Escribe tu mensaje"
@@ -88,6 +83,7 @@ export const Contact = () => {
                                     </FormControl>
                                     <NavLink to='/contactconfirm'>
                                         <Button
+                                            type='submit'
                                             colorScheme="blue"
                                             bg="blue.400"
                                             color="white"

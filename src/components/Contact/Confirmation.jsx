@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Confirmation = () => {
     return (
-        <Box textAlign="center" py={10} px={6}>
+        <Box textAlign="center" py={10} px={6} mt={{base:'10em'}}>
             <CheckCircleIcon boxSize={'50px'} color={'green.500'} />
             <Heading as="h2" size="xl" mt={6} mb={2}>
                 Gracias por comuinicarte con nosotros
