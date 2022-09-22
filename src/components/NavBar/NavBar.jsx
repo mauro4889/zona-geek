@@ -17,7 +17,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    Stack,
     Text,
     Avatar,
     Badge
@@ -29,8 +28,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { auth } from '../../firebase/firebase-utils'
-import { formatPrice } from '../../utils/formatPrice'
-import { CardCart } from '../CardCart/CardCart'
 
 
 
@@ -39,8 +36,10 @@ import { CardCart } from '../CardCart/CardCart'
 export const NavBar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-    const { products, total } = useSelector((state) => state.carrito)
+    const { products } = useSelector((state) => state.carrito)
     const { user } = useSelector((state) => state.user)
+    const cant = products.map(item=> item.quantity  )
+    console.log(cant)
     return (
         <Box w='100%' p='2%' borderBottom='1px' position='fixed' bg='white' zIndex='100'>
             <Flex justify='space-between'>
@@ -60,9 +59,9 @@ export const NavBar = () => {
                         <DrawerBody>
                             <UnorderedList listStyleType='none'>
                                 <Flex direction='column' justify='space-around' h='80vh' fontSize='xl' >
-                                    <ListItem><NavLink to='/' >Inicio</NavLink></ListItem>
-                                    <ListItem><NavLink to='contact'>Contacto</NavLink></ListItem>
-                                    <ListItem><NavLink to='/login' >Iniciar sesion</NavLink></ListItem>
+                                    <ListItem onClick={onClose}><NavLink to='/' >Inicio</NavLink></ListItem>
+                                    <ListItem onClick={onClose}><NavLink to='contact'>Contacto</NavLink></ListItem>
+                                    <ListItem onClick={onClose}><NavLink to='/login' >Iniciar sesion</NavLink></ListItem>
                                 </Flex>
                             </UnorderedList>
                         </DrawerBody>

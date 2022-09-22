@@ -37,13 +37,13 @@ export const CheckOut = () => {
     return (
         <Box p='5%'>
             <NavLink to='/'>
-                <Button  
-                mt='5%' 
-                mb='5%'
-                bg='gray.900' 
-                color='gray.50'
-                _hover={{bg:'gray.50', color:'gray.900'}}
-                leftIcon={<ArrowBackIcon />} fontSize='xl'>Seguir comprando</Button>
+                <Button
+                    mt='5%'
+                    mb='5%'
+                    bg='gray.900'
+                    color='gray.50'
+                    _hover={{ bg: 'gray.50', color: 'gray.900' }}
+                    leftIcon={<ArrowBackIcon />} fontSize='xl'>Seguir comprando</Button>
             </NavLink>
             <Text>{user.name}</Text>
             <Flex gap='10%' wrap='wrap' justify='space-between' >
@@ -65,12 +65,13 @@ export const CheckOut = () => {
                             <FormLabel>Localidad</FormLabel>
                             <Input borderColor={'black'} type='text' {...register('localidads', { requiered: true })}></Input>
                         </FormControl>
-                        <Button isDisabled={!products.length} bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
+                        <Button isDisabled={!products.length} spinner='true' bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
                     </Stack>
                 </form>
-                <Box mr={{lg:'10%'}} mt={{sm:'15%', lg:'0'}}>
+                <Box mr={{ lg: '10%' }} mt={{ sm: '15%', lg: '0' }}>
                     <Flex wrap='wrap' direction='column'>
                         <Button
+                            w='10em'
                             leftIcon={<DeleteIcon />}
                             onClick={() => dispatch(limpiarCart())}
                             bg={'blue.400'}
@@ -79,14 +80,16 @@ export const CheckOut = () => {
                             }}
                             _focus={{
                                 bg: 'blue.500',
-                            }}>Limpiar carrito</Button>
+                            }}
+                            isDisabled={!products.length}
+                            >Limpiar carrito</Button>
                         <Text fontWeight='bold'>Total: ${total}</Text>
                         {
                             products.map((product) => <CardCart key={product.id} {...product} />)
                         }
                     </Flex>
                 </Box>
-                <ScrollButton />
+                    <ScrollButton />
             </Flex>
         </Box>
     )

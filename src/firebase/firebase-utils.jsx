@@ -64,7 +64,6 @@ export const getFirebaseOrders = async userid => {
 
 //Crear usuario
 export const createUser = async (email, password, name) => {
-    try {
         const newUser = await createUserWithEmailAndPassword(
             auth,
             email,
@@ -72,16 +71,13 @@ export const createUser = async (email, password, name) => {
         )
         await updateProfile(auth.currentUser, {displayName: name})
         await sendEmailVerification(newUser.user, {
-            url: 'http://localhost:3000/login'
+            url: 'https://zona-geek.vercel.app/login'
         })
 
         alert(`Se envio un correo de verificacion a ${email}`)
         localStorage.setItem('username', newUser.user)
 
         return newUser
-    } catch (error) {
-
-    }
 
 }
 
@@ -94,7 +90,7 @@ export const signIn = (email, password) =>
 //Reiniciar contraseña
 export const resetPassword = async email => {
     await sendPasswordResetEmail(auth, email, {
-        url: 'http://localhost:3000/login'
+        url: 'https://zona-geek.vercel.app/login'
     })
     alert(`Se envio un correo de recuperacion de contraseña a ${email}`)
 }

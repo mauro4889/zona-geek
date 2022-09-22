@@ -12,13 +12,12 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    Link,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {  NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { createUser, resetPassword } from '../../firebase/firebase-utils';
+import { createUser } from '../../firebase/firebase-utils';
 import { useRedirect } from '../../hooks/useRedirect';
 
 const ERROR_CODES ={
@@ -35,10 +34,11 @@ export const CreateAcount = () => {
         try {
             await createUser(email, password, name, lastname)
         } catch (error) {
-            if (error.code === ERROR_CODES.EMAIL_IN_USE)
+            console.log(error)
+            if (error.code === ERROR_CODES.EMAIL_IN_USE){
             alert('Ya existe una cuenta con ese email')
             reset()
-        }
+        }}
     }
 
     return (
