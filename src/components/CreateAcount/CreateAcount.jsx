@@ -34,7 +34,6 @@ export const CreateAcount = () => {
         const {email, name, lastname, password} = values
         try {
             await createUser(email, password, name, lastname)
-            console.log(name)
         } catch (error) {
             if (error.code === ERROR_CODES.EMAIL_IN_USE)
             alert('Ya existe una cuenta con ese email')

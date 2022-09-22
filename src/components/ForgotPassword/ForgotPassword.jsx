@@ -9,8 +9,9 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../firebase/firebase-utils';
-import { useRedirect } from '../../hooks/useRedirect';
+
 
 const ERROR_TYPE = {
     NOT_FOUND: 'auth/user-not-found'
@@ -18,12 +19,13 @@ const ERROR_TYPE = {
 
 export const ForgotPassword = () => {
     const {reset, register, handleSubmit} = useForm()
+    const navigate = useNavigate()
 
-    useRedirect('/')
     
     const onSubmit = async values =>{
         try {
             await resetPassword(values.email)
+            navigate('/')
         } catch (error) {
             switch(error.code){
                 case ERROR_TYPE.NOT_FOUND:
@@ -57,7 +59,7 @@ export const ForgotPassword = () => {
                         color={useColorModeValue('gray.800', 'gray.400')}>
                         Recibiras un mail para recuperar tu contraseña
                     </Text>
-                    <FormControl id="email">
+                    <FormControl id="email" isRequired>
                         <Input
                             placeholder="tu-email@ejemplo.com"
                             _placeholder={{ color: 'gray.500' }}
@@ -71,7 +73,8 @@ export const ForgotPassword = () => {
                             color={'white'}
                             _hover={{
                                 bg: 'blue.500',
-                            }}>
+                            }}
+                            type='submit'>
                             Recuperar contraseña
                         </Button>
                     </Stack>
