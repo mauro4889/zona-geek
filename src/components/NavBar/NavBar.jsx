@@ -42,7 +42,7 @@ export const NavBar = () => {
     const { products, total } = useSelector((state) => state.carrito)
     const { user } = useSelector((state) => state.user)
     return (
-        <Box w='100%' p='2%' borderBottom='1px'>
+        <Box w='100%' p='2%' borderBottom='1px' position='fixed' bg='white' zIndex='100'>
             <Flex justify='space-between'>
                 <Button bg='none' ref={btnRef} onClick={onOpen}>
                     <HamburgerIcon color='black' fontSize='25px' />

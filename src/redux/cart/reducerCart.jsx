@@ -1,6 +1,6 @@
 import { products } from "../../data/products"
-import { AGREGAR, BORRAR, REMOVER } from "./actionCart"
-import { agregarCarrito, removerCarrito } from "./utilsCart"
+import { AGREGAR, BORRAR, ELIMINAR, REMOVER } from "./actionCart"
+import { agregarCarrito, eliminarCarrito, removerCarrito } from "./utilsCart"
 
 
 const initialState = {
@@ -35,6 +35,12 @@ export const reducerCart = (state = initialState, action) => {
             }
         case BORRAR:
             return initialState
+        case ELIMINAR:
+            const newDeletedProducts = eliminarCarrito(state.products, payload)
+            return {
+                ...state,
+                products: newDeletedProducts
+            }
         default:
             return state
     }

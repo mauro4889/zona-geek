@@ -1,17 +1,18 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import {
     Button,
     Center,
-    Flex,
     Heading,
+    Icon,
     Image,
     Stack,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { agregarCart, removerProducto } from '../../redux/cart/actionCart';
+import { agregarCart, eliminarProducto, removerProducto } from '../../redux/cart/actionCart';
 
-export const CardCart = ({title, desc, price, img, id, quantity}) => {
+export const CardCart = ({ title, desc, price, img, id, quantity }) => {
     const dispatch = useDispatch()
     return (
         <Center py={6}>
@@ -19,21 +20,20 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
                 borderWidth="1px"
                 borderRadius="lg"
                 borderColor='black'
-                maxW={{ xs:'1em', sm: '5em', md: '7em' }}
-                maxH={{ xs:'5em'}}                
-                height={{ xs:'20%', sm: '476px', md: '10rem' }}
+                w='100%'
+                h='15em'
                 direction={{ base: 'column', md: 'row' }}
                 bg={useColorModeValue('white', 'gray.900')}
                 boxShadow={'2xl'}
                 padding={4}
-                >
-                <Flex flex={1} bg="blue.200">
-                    <Image
-                        objectFit="cover"
-                        boxSize="100%"
-                        src={img}                        
-                    />
-                </Flex>
+            >
+                <Image
+                    objectFit="cover"
+                    w='10em'
+                    h='5em'
+                    m='auto'
+                    src={img}
+                />
                 <Stack
                     flex={1}
                     flexDirection="column"
@@ -41,7 +41,8 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
                     alignItems="center"
                     p={1}
                     pt={2}>
-                    <Heading fontSize={'2xl'} fontFamily={'body'}>
+                    <Button onClick={()=>dispatch(eliminarProducto({id}))}><Icon as={DeleteIcon}/></Button>
+                    <Heading fontSize={'2xl'} fontFamily={'body'} textAlign='center'>
                         {title}
                     </Heading>
                     <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
@@ -65,7 +66,7 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
                             _focus={{
                                 bg: 'blue.500',
                             }}
-                            onClick={()=>dispatch(removerProducto({id}))}>
+                            onClick={() => dispatch(removerProducto({ id }))}>
                             -
                         </Button>
                         <Text>{quantity}</Text>
@@ -84,7 +85,7 @@ export const CardCart = ({title, desc, price, img, id, quantity}) => {
                             _focus={{
                                 bg: 'blue.500',
                             }}
-                            onClick={()=>dispatch(agregarCart({id}))}>
+                            onClick={() => dispatch(agregarCart({ id }))}>
                             +
                         </Button>
                     </Stack>

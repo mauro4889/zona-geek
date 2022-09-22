@@ -31,3 +31,10 @@ export const removerCarrito = (cart, product) => {
     return cart.filter(item => product.id !== item.id);
 }
 
+export const eliminarCarrito = (cart, product) =>{
+    const exist = cart.find(item => item.id === product.id)
+    
+    if (exist && exist.quantity >= 1){
+        return cart.filter(item => item.id !== product.id)
+    }
+}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Box, Flex, Select, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Select, Text } from '@chakra-ui/react'
 import { Card } from '../Card/Card'
 import {products, _products} from '../../data/products'
+import { ScrollButton } from '../ScrollButton/ScrollButton'
 
 export const Products = () => {
     const [categoria, setCategoria] = useState('')
@@ -19,7 +20,8 @@ export const Products = () => {
                 <option value='gabinete'>Gabinete</option>
                 <option value='gpu'>Placa de video</option>
             </Select>
-            <Box w='80%' m='auto' mt='2%'  h='35em' overflow='scroll'>
+            <ScrollButton/>
+            <Box w='80%' m='auto' mt='2%'>
                 <Flex direction='row' wrap='wrap' alignItems='center' justifyContent='center' gap='5%' >
                     {Object.entries(_products).map(([category, product])=>
                         !categoria || category === categoria ?

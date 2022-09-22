@@ -8,17 +8,24 @@ import {
     Image,
     Button,
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {  agregarCart } from '../../redux/cart/actionCart';
 import { formatPrice } from '../../utils/formatPrice';
 
 
 export const Card = ({title, desc, price, category, img, id}) => {
     const dispatch = useDispatch()
+    const {user} = useSelector(state=>state.user)
+    const navigate = useNavigate()
 
     const handleSubmit = () =>{
-        dispatch(agregarCart({title, desc, price, category, img, id}))
-
+        if(user){
+            dispatch(agregarCart({title, desc, price, category, img, id}))
+        }else{
+            navigate('/login')
+        }
+            
     }
 
     return (

@@ -9,6 +9,7 @@ import { v4 } from 'uuid';
 import { ArrowBackIcon, DeleteIcon } from '@chakra-ui/icons'
 import { Spinner } from '@chakra-ui/react'
 import { limpiarCart } from '../../redux/cart/actionCart'
+import { ScrollButton } from '../ScrollButton/ScrollButton'
 
 export const CheckOut = () => {
     const { reset, register, handleSubmit, isSubmitting } = useForm()
@@ -31,6 +32,7 @@ export const CheckOut = () => {
         navigate('/finishorder')
         reset()
     }
+
 
     return (
         <Box p='5%'>
@@ -57,10 +59,10 @@ export const CheckOut = () => {
                             <FormLabel>Localidad</FormLabel>
                             <Input borderColor={'black'} type='text' {...register('localidads', { requiered: true })}></Input>
                         </FormControl>
-                        <Button isDisabled={isSubmitting} bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
+                        <Button isDisabled={!products.length} bg='black' color='white' type='submit' value='submit' _hover={{ color: 'black', bg: 'white' }}> {isSubmitting && <Spinner />} Finalizar compra</Button>
                     </Stack>
                 </form>
-                <Box maxW='50%' overflow='scroll' >
+                <Box mr={{lg:'10%'}} mt={{sm:'15%', lg:'0'}}>
                     <Flex wrap='wrap' direction='column'>
                         <Button
                             leftIcon={<DeleteIcon />}
@@ -72,13 +74,13 @@ export const CheckOut = () => {
                             _focus={{
                                 bg: 'blue.500',
                             }}>Limpiar carrito</Button>
+                        <Text fontWeight='bold'>Total: ${total}</Text>
                         {
                             products.map((product) => <CardCart key={product.id} {...product} />)
                         }
-                        <Text fontWeight='bold'>Total: ${total}</Text>
                     </Flex>
-
                 </Box>
+                <ScrollButton />
             </Flex>
         </Box>
     )
