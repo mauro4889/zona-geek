@@ -37,9 +37,13 @@ export const reducerCart = (state = initialState, action) => {
             return initialState
         case ELIMINAR:
             const newDeletedProducts = eliminarCarrito(state.products, payload)
+            const newSubTotal = newDeletedProducts.reduce(
+                (sub, products) => (sub += products.price * products.quantity),
+                0)
             return {
                 ...state,
-                products: newDeletedProducts
+                products: newDeletedProducts,
+                total: newSubTotal
             }
         default:
             return state

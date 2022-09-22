@@ -37,7 +37,13 @@ export const CheckOut = () => {
     return (
         <Box p='5%'>
             <NavLink to='/'>
-                <Button bg='none' mb='5%' leftIcon={<ArrowBackIcon />} fontSize='xl'>Seguir comprando</Button>
+                <Button  
+                mt='5%' 
+                mb='5%'
+                bg='gray.900' 
+                color='gray.50'
+                _hover={{bg:'gray.50', color:'gray.900'}}
+                leftIcon={<ArrowBackIcon />} fontSize='xl'>Seguir comprando</Button>
             </NavLink>
             <Text>{user.name}</Text>
             <Flex gap='10%' wrap='wrap' justify='space-between' >
